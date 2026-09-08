@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>My Flask App</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+    <body>
+        <h1>This file creates for apply Conditions on Elements</h1>
+        {% for key in marks %}
+        {% if marks[key] < 80 %}
+        <p>{{ key }}: {{ marks[key] }}</p>
+                
+            {% endif %}
+        {% endfor %}
+        
+    </body>
+</html>
