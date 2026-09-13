@@ -51,7 +51,8 @@
             <button type="button" class="remove-file-btn" onclick="removeFileInput(this)">×</button>
         `;
         fileInputs.appendChild(newFileInput);
-        fileCounter++
+        fileCounter++;
+        filecounter = fileCounter; // Update the counter for the next input
     }
 
     function removeFileInput(button) {
