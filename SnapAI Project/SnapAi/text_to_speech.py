@@ -1,20 +1,49 @@
-from elevenlabs import stream
+import os
+import uuid
+from dotenv import load_dotenv
+from elevenlabs import VoiceSettings
 from elevenlabs.client import ElevenLabs
+from config import ELEVENLABS_API_KEY
+load_dotenv()
 
+# ELEVENLABS_API_KEY = os.getenv("ELEVENLABS_API_KEY")
 elevenlabs = ElevenLabs(
-  api_key="YOUR_API_KEY",
+    api_key=ELEVENLABS_API_KEY,
 )
 
-audio_stream = elevenlabs.text_to_speech.stream(
-    text="This is a test",
-    voice_id="JBFqnCBsd6RMkjVDRZzb",
-    model_id="eleven_multilingual_v2"
-)
 
-# option 1: play the streamed audio locally
-stream(audio_stream)
+def text_to_speech_file(text: str, folder: str) -> str:
+    # Calling the text_to_speech conversion API with detailed parameters
+    response = elevenlabs.text_to_speech.convert(
+        voice_id="pNInz6obpgDQGcFmaJgB", # Adam pre-made voice
+        output_format="mp3_22050_32",
+        text=text,
+        model_id="eleven_flash_v2_5", # use the flash model for low latency
+        # Optional voice settings that allow you to customize the output
+        voice_settings=VoiceSettings(
+            stability=0.0,
+            similarity_boost=1.0,
+            style=0.0,
+            use_speaker_boost=True,
+            speed=1.0,
+        ),
+    )
 
-# option 2: process the audio bytes manually
-for chunk in audio_stream:
-    if isinstance(chunk, bytes):
-        print(chunk)
+    # uncomment the line below to play the audio back
+    # play(response)
+
+    # Generating a unique file name for the output MP3 file
+    save_file_path = os.path.join(f"user_uploads/{folder}","audio.mp3")
+
+    # Writing the audio to a file
+    with open(save_file_path, "wb") as f:
+        for chunk in response:
+            if chunk:
+                f.write(chunk)
+
+    print(f"{save_file_path}: A new audio file was saved successfully!")
+
+    # Return the path of the saved audio file
+    return save_file_path
+
+# text_to_speech_file("Hey satyam how was your day going and learning python journey is hard for you or not i know they easy for you because you have already lot of knowlegde for coding so have a great blessing for you","b902bc73-b068-11f1-b5fb-849e56fb9182")

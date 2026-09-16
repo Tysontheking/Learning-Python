@@ -26,14 +26,20 @@ def create():
             print(key,value)
     #uploads file 
             file = request.files[key]
+            input_file = []
             if file:
                 filename = secure_filename(file.filename)
                 if(not os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'],rec_id))):
                     os.mkdir(os.path.join(app.config['UPLOAD_FOLDER'],rec_id))
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'],rec_id, filename))
+                input_file.append(filename)
             #write text
             with open(os.path.join(app.config['UPLOAD_FOLDER'],rec_id, "Description.txt"), 'w') as f:
                 f.write(doc)
+                
+            for fn in input_file:
+                with open(os.path.join(app.config['UPLOAD_FOLDER'],rec_id, "input.txt"),'w',encoding="utf-8") as f:
+                    f.write(f"file '{fn}'\n duration 1\n")
     
     myid = uuid.uuid1()
     return render_template("create.html", myid = myid)
