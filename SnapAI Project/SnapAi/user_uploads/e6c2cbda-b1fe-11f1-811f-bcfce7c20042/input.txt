@@ -1,0 +1,12 @@
+file 'shivam.jpg'
+duration 1
+file 'GTA_VI.jpg'
+duration 1
+file 'GHOST_OF_TSUSHIMA_2.jpg'
+duration 1
+file 'UNCHARTED_5.jpg'
+duration 1
+file 'The_Last_of_Us_Part_II_Remastered_-_PS5.jpg'
+duration 1
+file 'download_5.jpg'
+duration 1
