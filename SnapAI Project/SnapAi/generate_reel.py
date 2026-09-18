@@ -8,7 +8,7 @@ import subprocess
 
 def text_to_speech(folder):
     # print('TTS : ',folder)
-    with open(f"user_uploads/{folder}/Description.txt") as f:
+    with open(f"user_uploads/{folder}/Description.txt", encoding="utf-8") as f:
         text = f.read()
     # print(text,folder)
     text_to_speech_file(text,folder)
@@ -23,7 +23,7 @@ def generate_reel(folder):
 
 if __name__ == '__main__':
     while True:
-        print("Processing quere")
+        print("Processing quere")   
         with open("done.txt",'r') as f:
             done_folder = f.readlines()
             

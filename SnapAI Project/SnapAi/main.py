@@ -132,7 +132,9 @@ def create():
 
 @app.route("/gallery")
 def gallery():
-    return render_template("gallery.html")
+    reels = os.listdir("static/reels")
+    # print("Reels found:", reels)
+    return render_template("gallery.html",reels=reels)
 
 
 if __name__ == "__main__":
